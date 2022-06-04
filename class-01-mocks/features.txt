@@ -1,0 +1,5 @@
+the file should have id, title, description, author and created_at fields
+the file should not be empty
+the file should not be longer than 20 lines including headers
+the title should not be longer than 40 characters
+the created_at field should follow the american date format (YYYY-mm-dd)
