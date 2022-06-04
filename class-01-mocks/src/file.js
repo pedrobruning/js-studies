@@ -24,14 +24,13 @@ class File {
     }
 
     static async getFileContent(filePath) {
-        const fileName = join(__dirname, filePath)
-        return (await readFile(fileName)).toString('utf-8')
+        return (await readFile(filePath)).toString('utf-8')
     }
 
     static isValid(csvString, options = DEFAULT_OPTIONS) {
         const [headers, ...fileWithoutHeaders] = csvString.split('\r\n')
-        const isHeaderValid = headers === options.fields.join(',')
-        
+        const isHeaderValid = headers === options.fields.join(',')        
+
         if (!isHeaderValid) {
             return File.validationError(error.FILE_HEADERS_ERROR_MESSAGE)
         }
