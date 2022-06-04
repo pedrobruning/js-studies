@@ -1,6 +1,5 @@
 const { readFile } = require('fs/promises')
-const { join } = require('path')
-const { title } = require('process')
+const Post = require('./post')
 const { error } = require('./constants')
 
 const DEFAULT_OPTIONS = {    
@@ -20,7 +19,23 @@ class File {
         if (!validation.valid) {
             throw new Error(validation.error)
         }
-        return content
+        const posts = File.parseCsvToJson(content)
+        return posts
+    }
+
+    static parseCsvToJson(csvString) {
+        const lines = csvString.split('\r\n')
+        const firstLine = lines.shift()
+        const headers = firstLine.split(',')
+        const posts = lines.map(line => {
+            const columns = line.split(',')
+            let post = {}
+            for (const index in columns) {
+                post[headers[index]] = columns[index]
+            }
+            return new Post(post)            
+        })
+        return posts
     }
 
     static async getFileContent(filePath) {
