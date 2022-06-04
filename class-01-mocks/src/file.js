@@ -51,7 +51,7 @@ class File {
         }        
 
         const isCreatedAtValid = File.validateDateFormat(fileWithoutHeaders, options.dateFormat)
-        console.log(isCreatedAtValid)
+                
         if (!isCreatedAtValid) {
             return File.validationError(error.FILE_DATE_FORMAT_ERROR)
         }
